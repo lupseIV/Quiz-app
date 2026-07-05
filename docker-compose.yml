@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: examprep-postgres
+    environment:
+      POSTGRES_DB: examprep
+      POSTGRES_USER: examprep
+      POSTGRES_PASSWORD: examprep
+    ports:
+      - "5432:5432"
+    volumes:
+      - examprep-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U examprep"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Optional: run the backend in Docker too (requires building the boot jar first:
+  #   cd backend && ./gradlew bootJar
+  # then: docker compose --profile backend up
+  backend:
+    profiles: ["backend"]
+    image: eclipse-temurin:21-jre
+    container_name: examprep-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    working_dir: /app
+    volumes:
+      - ./backend/build/libs:/app
+    command: sh -c "java -jar exam-prep-backend-0.0.1-SNAPSHOT.jar"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      DB_URL: jdbc:postgresql://postgres:5432/examprep
+      DB_USERNAME: examprep
+      DB_PASSWORD: examprep
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      JWT_SECRET: ${JWT_SECRET:-local-dev-only-secret-change-me-0123456789abcdef}
+    ports:
+      - "8080:8080"
+
+volumes:
+  examprep-pgdata:

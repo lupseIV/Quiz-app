@@ -1,0 +1,10 @@
+# Local development profile: run with SPRING_PROFILES_ACTIVE=local
+# Provides dev-only defaults so `docker compose up` + `./gradlew bootRun` just works.
+# NEVER use these values outside local development.
+spring:
+  jpa:
+    show-sql: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:local-dev-only-secret-change-me-0123456789abcdef}

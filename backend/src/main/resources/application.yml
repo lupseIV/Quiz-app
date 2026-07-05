@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: exam-prep-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/examprep}
+    username: ${DB_USERNAME:examprep}
+    password: ${DB_PASSWORD:examprep}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: 8080
+  # Base64 canvas PNGs can be large
+  tomcat:
+    max-http-form-post-size: 10MB
+  max-http-request-header-size: 64KB
+
+app:
+  jwt:
+    # Must be set via environment variable — no default on purpose.
+    secret: ${JWT_SECRET:}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:1440}
+  ai:
+    api-key: ${ANTHROPIC_API_KEY:}
+    model: ${ANTHROPIC_MODEL:claude-sonnet-5}
+    base-url: ${ANTHROPIC_BASE_URL:https://api.anthropic.com}
+    max-tokens: 4096
+    quiz-question-count: 5
+    requests-per-minute: ${AI_REQUESTS_PER_MINUTE:10}
