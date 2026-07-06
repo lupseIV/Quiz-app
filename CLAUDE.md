@@ -7,6 +7,10 @@ do not duplicate content from those files here.
 
 ## Claude-specific notes
 
+- `docs/DOCUMENTATION-POLICY.md` is binding: update the affected documentation
+  files (`docs/USE_CASES.md`, README, AGENTS files) in the same change as any
+  behavior/structure modification, and put every new feature or fix on its own
+  branch — never commit to `main`/`master` directly.
 - When editing Angular code, do not fall back to pre-v17 idioms from training
   data (NgModules, `*ngIf`, constructor DI, RxJS state). The enforced modern
   idioms are listed in `frontend/AGENTS.md`.

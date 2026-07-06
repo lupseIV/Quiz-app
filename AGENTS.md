@@ -12,11 +12,20 @@ in `README.md`, not here.
 ```
 ├── frontend/            Angular 22 SPA (see frontend/AGENTS.md)
 ├── backend/             Spring Boot 4 REST API (see backend/AGENTS.md)
+├── docs/
+│   ├── USE_CASES.md             Actor/flow docs for every feature
+│   ├── TODO-FEATURES.md         Feature backlog
+│   └── DOCUMENTATION-POLICY.md  BINDING doc-update + branching rules
 ├── docker-compose.yml   Local Postgres 17 (+ optional backend container)
 ├── README.md            Human-facing setup docs
 ├── AGENTS.md            This file
 └── CLAUDE.md            Claude-specific pointer to this file
 ```
+
+**Before changing anything, read `docs/DOCUMENTATION-POLICY.md`.** It is
+binding: every modification must update the affected docs in the same change,
+and all new features/fixes go on their own `feature/*`, `fix/*`, or `docs/*`
+branch — never directly on `main`/`master`.
 
 ## Versions (do not assume older APIs)
 
@@ -59,9 +68,10 @@ There are no DB migrations; the schema comes from Hibernate `ddl-auto: update`.
 - Do not leave commented-out code.
 - Commit messages: imperative mood summary line ("Add quiz history endpoint"),
   no mandated prefix format.
-- If you change a command, version, or structural convention, update the
-  relevant `AGENTS.md` (and `CLAUDE.md` if Claude-specific) **in the same
-  change**. These files must never go stale.
+- Documentation freshness and branch discipline are governed by
+  `docs/DOCUMENTATION-POLICY.md` — its "which file to update" table and
+  definition-of-done checklist apply to every change. These files must never
+  go stale.
 
 ## Before you finish (checklist)
 
@@ -69,4 +79,6 @@ There are no DB migrations; the schema comes from Hibernate `ddl-auto: update`.
 2. `cd frontend && npm test` — green.
 3. `cd frontend && npm run build` — compiles without errors.
 4. No commented-out code, no stray debug logging, no new unexplained deps.
-5. AGENTS/CLAUDE files updated if you changed commands/versions/conventions.
+5. All docs named by the table in `docs/DOCUMENTATION-POLICY.md` §1 updated
+   (AGENTS/CLAUDE files, `docs/USE_CASES.md` for flow changes, README).
+6. The change lives on its own branch per `docs/DOCUMENTATION-POLICY.md` §2.

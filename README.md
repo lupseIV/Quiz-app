@@ -104,9 +104,14 @@ docker compose --profile backend up
 ```
 ├── backend/    Spring Boot 4 API (see backend/AGENTS.md for conventions)
 ├── frontend/   Angular 22 app  (see frontend/AGENTS.md for conventions)
+├── docs/       USE_CASES.md · TODO-FEATURES.md · DOCUMENTATION-POLICY.md
 ├── docker-compose.yml
 └── README.md
 ```
+
+Detailed actor/flow documentation for every feature lives in
+`docs/USE_CASES.md`. Contribution rules (docs must be updated with every
+change; all work on dedicated branches) are in `docs/DOCUMENTATION-POLICY.md`.
 
 ## Feature overview
 
@@ -121,7 +126,8 @@ docker compose --profile backend up
 - **Mind-maps** — AI-generated node trees with per-branch colors and mnemonic
   catchphrases, rendered with D3 and saved for revisiting
 
-### Stretch goals (not implemented, by design)
+### Planned features
 
 Spaced-repetition flashcards, PDF/slide upload with text extraction, study
-streaks/reminders, difficulty-adaptive quizzes.
+streaks/reminders, difficulty-adaptive quizzes, and more — the prioritized
+backlog is in `docs/TODO-FEATURES.md`.
