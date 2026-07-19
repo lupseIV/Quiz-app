@@ -34,6 +34,46 @@ but bigger, **P3** = nice-to-have.
 - [ ] **P3 — Web clipper / URL import**: paste an article URL, backend fetches
   and strips it into topic content.
 
+## Handwriting notes — GoodNotes-level canvas
+
+Bring `DrawingCanvas` up to par with GoodNotes/Notability. The canvas already
+stores strokes as vector data (points + color + width), which is the right
+foundation for most of these.
+
+- [ ] **P1 — Pixel/partial eraser** (GoodNotes "standard eraser"): erasing
+  removes only the hovered part of a stroke, not the whole stroke — split the
+  stroke's point list at the erased segment into two strokes instead of
+  deleting it. Keep the current whole-stroke eraser as a second mode
+  ("stroke eraser"), like GoodNotes offers both.
+- [ ] **P1 — Highlighter tool** (GoodNotes): semi-transparent wide strokes
+  (multiply blending, fixed opacity ~35%), drawn *under* pen strokes; own
+  color row (yellow/green/pink/blue/orange).
+- [ ] **P1 — Multiple pen types** (GoodNotes fountain/ball/brush pens):
+  ball pen (uniform width), fountain pen (stronger pressure→width curve),
+  brush pen (velocity-sensitive width); pen type saved per stroke.
+- [ ] **P1 — Scribble-to-erase gesture** (Apple Pencil "Scribble", GoodNotes):
+  detect a rapid zig-zag scribble over existing strokes (high direction-change
+  count in a small bounding box within ~1s) and delete the strokes underneath
+  it — e.g. squiggle over a wrong word and it disappears.
+- [ ] **P2 — Shape tool / shape recognition** (GoodNotes shape pen): explicit
+  shape mode (line, rectangle, ellipse, arrow) drawn by drag; stretch: hold at
+  stroke end to auto-snap a rough freehand shape to the perfect primitive.
+- [ ] **P2 — Full color picker** (GoodNotes color presets + custom): replace
+  the fixed 6-swatch row with recent-colors row + full HSL/hex picker; keep
+  per-tool (pen vs highlighter) color memory.
+- [ ] **P2 — Multi-page notebooks with vertical scroll** (GoodNotes pages):
+  a drawing note becomes a list of pages scrolled vertically; "add page"
+  appears when scrolling past the last page; pages saved/exported
+  individually (model change: one DRAWING note → ordered page images or a
+  pages JSON with vector strokes).
+- [ ] **P2 — Store strokes as vectors server-side**: persist the stroke JSON
+  alongside (or instead of) the flattened PNG so notes stay re-editable after
+  reload — prerequisite for reopening/editing saved drawings like GoodNotes.
+- [ ] **P3 — Lasso select + move/resize** (GoodNotes lasso): select strokes by
+  circling them, then drag/scale/recolor the selection.
+- [ ] **P3 — Paper templates**: ruled/grid/dotted/blank page backgrounds per
+  notebook, rendered under the ink and included in exports.
+
 ## Study habits & motivation
 
 - [ ] **P1 — Study streaks + reminders** (Duolingo, Forest): daily activity
@@ -61,6 +101,7 @@ but bigger, **P3** = nice-to-have.
   history from the toolbar.
 - [ ] **P3 — Note organization upgrades** (GoodNotes): pin notes, tags,
   full-screen canvas, palm rejection tuning, export drawing as PDF.
+  (Canvas *tooling* upgrades live in the dedicated handwriting section above.)
 - [ ] **P3 — Refresh tokens + httpOnly cookie auth**: move JWT out of
   localStorage to a refresh-token scheme for better security posture.
 
